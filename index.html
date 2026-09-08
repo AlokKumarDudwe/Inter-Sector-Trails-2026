@@ -11,67 +11,50 @@
   --bg:#0a0f1a;--s1:#0f1520;--s2:#141d2e;--s3:#1a2540;
   --b1:#1e2e4a;--lime:#b8ff3c;--blue:#4da6ff;--pink:#ff3d7f;
   --gold:#ffcc3c;--teal:#2de8c4;--t1:#f0f4ff;--t2:#8899bb;--t3:#4d6080;
-  --rsm:8px;--rmd:12px;--rlg:16px;
+  --rsm:8px;--rmd:12px;
 }
 body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
-
-/* ── HEADER ── */
 .hdr{background:var(--s1);border-bottom:2px solid var(--lime);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .hdr-left{display:flex;align-items:center;gap:10px}
 .hdr-logo{font-size:1.5rem}
-.hdr-title{font-weight:800;font-size:1rem;color:var(--t1);line-height:1.2}
+.hdr-title{font-weight:800;font-size:1rem;line-height:1.2}
 .hdr-sub{font-size:.7rem;color:var(--lime);font-weight:600;letter-spacing:.5px}
 .hdr-tabs{display:flex;gap:6px}
 .htab{padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;border:1px solid var(--b1);background:transparent;color:var(--t2);cursor:pointer;transition:all .2s}
 .htab.active{background:var(--lime);color:#060a00;border-color:var(--lime)}
-
-/* ── MAIN ── */
 .main{flex:1;padding:20px 16px;max-width:600px;margin:0 auto;width:100%}
-
-/* ── CARD ── */
 .card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rmd);padding:20px;margin-bottom:16px}
 .card-title{font-size:.7rem;font-weight:700;color:var(--lime);letter-spacing:1.5px;margin-bottom:16px;text-transform:uppercase}
-
-/* ── FORM ── */
 .fg{margin-bottom:14px}
 .fg label{display:block;font-size:.7rem;font-weight:700;color:var(--t2);letter-spacing:.5px;margin-bottom:5px;text-transform:uppercase}
-.fg label .req{color:var(--pink)}
+.req{color:var(--pink)}
 .fi{width:100%;padding:11px 14px;background:var(--s2);border:1.5px solid var(--b1);border-radius:var(--rsm);color:var(--t1);font-size:.9rem;outline:none;transition:border .2s;font-family:inherit}
 .fi:focus{border-color:var(--lime)}
 .fi::placeholder{color:var(--t3)}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.cat-card{background:var(--s2);border:2px solid var(--b1);border-radius:var(--rsm);padding:14px;cursor:pointer;transition:all .2s;text-align:center}
-.cat-card:hover{border-color:var(--t2)}
-.cat-card.sel-m{border-color:var(--blue);background:rgba(77,166,255,.08)}
-.cat-card.sel-f{border-color:var(--pink);background:rgba(255,61,127,.08)}
-.cat-card input{display:none}
+.cat-card{background:var(--s2);border:2px solid var(--b1);border-radius:var(--rsm);padding:14px;cursor:pointer;transition:all .2s;text-align:center;user-select:none}
+.cat-card.sel-m{border-color:var(--blue);background:rgba(77,166,255,.1)}
+.cat-card.sel-f{border-color:var(--pink);background:rgba(255,61,127,.1)}
 .cat-icon{font-size:1.8rem;margin-bottom:4px}
 .cat-name{font-size:.88rem;font-weight:700}
 .cat-sub{font-size:.68rem;color:var(--t3);margin-top:2px}
-.btn{padding:11px 22px;border-radius:var(--rsm);font-weight:700;font-size:.88rem;border:none;cursor:pointer;transition:all .2s}
+.btn{padding:11px 22px;border-radius:var(--rsm);font-weight:700;font-size:.88rem;border:none;cursor:pointer;transition:all .2s;display:inline-block}
 .btn-lime{background:var(--lime);color:#060a00}
 .btn-lime:hover{filter:brightness(1.1)}
 .btn-lime:disabled{opacity:.5;cursor:not-allowed}
 .btn-ghost{background:transparent;border:1px solid var(--b1);color:var(--t2)}
 .btn-ghost:hover{border-color:var(--t1);color:var(--t1)}
-.btn-blue{background:var(--blue);color:#060a00}
-.btn-full{width:100%}
-
-/* ── ALERTS ── */
-.al{padding:12px 14px;border-radius:var(--rsm);font-size:.82rem;margin-bottom:14px;display:none}
+.btn-red{background:rgba(255,61,127,.15);border:1px solid rgba(255,61,127,.3);color:var(--pink)}
+.btn-full{width:100%;text-align:center}
+.al{padding:12px 14px;border-radius:var(--rsm);font-size:.82rem;margin-bottom:14px}
 .al-err{background:rgba(255,61,127,.1);border:1px solid rgba(255,61,127,.3);color:#ff8aaa}
 .al-ok{background:rgba(184,255,60,.08);border:1px solid rgba(184,255,60,.25);color:var(--lime)}
 .al-info{background:rgba(77,166,255,.08);border:1px solid rgba(77,166,255,.25);color:var(--blue)}
-
-/* ── SUCCESS SCREEN ── */
+.al-warn{background:rgba(255,204,60,.08);border:1px solid rgba(255,204,60,.3);color:var(--gold)}
 .success-screen{display:none;text-align:center;padding:30px 0}
 .success-icon{font-size:3rem;margin-bottom:12px}
 .success-title{font-size:1.2rem;font-weight:800;color:var(--lime);margin-bottom:6px}
 .success-sub{font-size:.82rem;color:var(--t2);margin-bottom:20px}
-
-/* ── ADMIN ── */
-.admin-hidden{display:none}
-.login-wrap{max-width:320px;margin:40px auto}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stat-box{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rsm);padding:12px;text-align:center}
 .stat-num{font-size:1.6rem;font-weight:800;color:var(--lime)}
@@ -89,27 +72,23 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
 .fpill.act{background:var(--lime);color:#060a00;border-color:var(--lime)}
 .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .del-btn{background:transparent;border:none;color:var(--t3);cursor:pointer;font-size:.9rem;padding:2px 6px;border-radius:4px}
-.del-btn:hover{color:var(--pink);background:rgba(255,61,127,.1)}
+.del-btn:hover{color:var(--pink)}
 .mono{font-family:'Courier New',monospace}
-
-/* ── FOOTER ── */
+.login-wrap{max-width:320px;margin:40px auto}
 .footer{background:var(--s1);border-top:1px solid var(--b1);padding:12px 16px;text-align:center}
 .footer-txt{font-size:.72rem;color:var(--t3)}
 .footer-contact{font-size:.8rem;font-weight:700;color:var(--t1);margin-top:4px}
 .footer-phone{color:var(--lime)}
-
-@media(max-width:400px){.cat-grid{grid-template-columns:1fr 1fr}.stats-row{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-left">
     <div class="hdr-logo">🏓</div>
     <div>
-      <div class="hdr-title">TT Trials 2025</div>
-      <div class="hdr-sub">ONGC · Inter Sector Tournament</div>
+      <div class="hdr-title">TT Inter-Sector Trials 2026</div>
+      <div class="hdr-sub">ONGC · Northern Region</div>
     </div>
   </div>
   <div class="hdr-tabs">
@@ -118,36 +97,29 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- ═══ REGISTRATION PAGE ═══ -->
+  <!-- REGISTRATION -->
   <div id="page-reg">
     <div class="card">
       <div class="card-title">📋 Player Registration</div>
-      <div class="al al-info" id="reg-deadline-banner"></div>
-
-      <!-- FORM -->
+      <div id="reg-banner" style="display:none;margin-bottom:14px"></div>
       <div id="reg-form">
-        <!-- Category -->
         <div class="fg">
           <label>Category <span class="req">*</span></label>
           <div class="cat-grid">
-            <label class="cat-card" id="card-m" onclick="selectCat('M')">
-              <input type="radio" name="cat" value="M"/>
+            <div class="cat-card" id="card-m" onclick="selectCat('M')">
               <div class="cat-icon">👨</div>
               <div class="cat-name" style="color:var(--blue)">Men's Trial</div>
               <div class="cat-sub">Selecting 4 players</div>
-            </label>
-            <label class="cat-card" id="card-f" onclick="selectCat('F')">
-              <input type="radio" name="cat" value="F"/>
+            </div>
+            <div class="cat-card" id="card-f" onclick="selectCat('F')">
               <div class="cat-icon">👩</div>
               <div class="cat-name" style="color:var(--pink)">Women's Trial</div>
               <div class="cat-sub">Selecting 2 players</div>
-            </label>
+            </div>
           </div>
         </div>
-
         <div class="fg">
           <label>CPF / Employee ID <span class="req">*</span></label>
           <input class="fi mono" id="n-cpf" placeholder="e.g. 12345" maxlength="7" inputmode="numeric"/>
@@ -158,26 +130,22 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
         </div>
         <div class="fg">
           <label>WhatsApp Number <span class="req">*</span></label>
-          <input class="fi" id="n-wa" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric"/>
+          <input class="fi mono" id="n-wa" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric"/>
         </div>
         <div class="fg">
           <label>Department / Section</label>
           <input class="fi" id="n-dept" placeholder="e.g. EDS, Drilling, Finance (optional)"/>
         </div>
-
-        <div class="al al-err" id="reg-err"></div>
+        <div class="al al-err" id="reg-err" style="display:none"></div>
         <button class="btn btn-lime btn-full" id="reg-btn" onclick="submitReg()">Submit Registration</button>
       </div>
-
-      <!-- SUCCESS -->
       <div class="success-screen" id="reg-ok">
         <div class="success-icon">✅</div>
         <div class="success-title">Registered Successfully!</div>
-        <div class="success-sub" id="reg-ok-msg">Your entry has been recorded.</div>
+        <div class="success-sub" id="reg-ok-msg"></div>
         <button class="btn btn-ghost" onclick="resetReg()">Register Another Player</button>
       </div>
     </div>
-
     <div class="card" style="text-align:center">
       <div style="font-size:.75rem;color:var(--t3);margin-bottom:6px">📊 Total Registrations</div>
       <div style="font-size:2rem;font-weight:800;color:var(--lime)" id="pub-count">—</div>
@@ -188,65 +156,63 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
     </div>
   </div>
 
-  <!-- ═══ ADMIN PAGE ═══ -->
+  <!-- ADMIN -->
   <div id="page-admin" style="display:none">
-
-    <!-- Login -->
     <div id="admin-login" class="login-wrap">
       <div class="card">
         <div class="card-title">🔐 Admin Login</div>
         <div class="fg">
           <label>Password</label>
-          <input class="fi" id="adm-pass" type="password" placeholder="Enter admin password" onkeydown="if(event.key==='Enter') adminLogin()"/>
+          <input class="fi" id="adm-pass" type="password" placeholder="Enter admin password"
+            onkeydown="if(event.key==='Enter') adminLogin()"/>
         </div>
-        <div class="al al-err" id="login-err"></div>
+        <div class="al al-err" id="login-err" style="display:none"></div>
         <button class="btn btn-lime btn-full" onclick="adminLogin()">Login</button>
       </div>
     </div>
 
-    <!-- Dashboard -->
-    <div id="admin-dash" class="admin-hidden">
+    <div id="admin-dash" style="display:none">
 
-      <!-- Settings -->
-      <div class="card" id="url-card">
+      <!-- Settings card -->
+      <div class="card">
         <div class="card-title">⚙️ Settings</div>
         <div class="fg">
-          <label>Apps Script Web App URL</label>
-          <input class="fi" id="adm-url" placeholder="https://script.google.com/..."/>
-        </div>
-        <div class="fg" style="margin-top:10px">
           <label>Registration Deadline</label>
           <input class="fi" id="adm-deadline" type="date"/>
           <div style="font-size:.7rem;color:var(--t3);margin-top:4px">Leave blank to keep registration always open</div>
         </div>
-        <div style="display:flex;gap:8px;margin-top:4px">
-          <button class="btn btn-lime" onclick="saveSettings()">💾 Save Settings</button>
-          <button class="btn btn-ghost" onclick="syncData()">🔄 Sync</button>
+        <div class="fg">
+          <label>Admin Notes</label>
+          <input class="fi" id="adm-notes" placeholder="e.g. Trials on 19-20 Sept at TT Hall"/>
         </div>
-        <div class="al al-info" id="url-status" style="margin-top:10px"></div>
+        <button class="btn btn-lime" onclick="saveSettings()">💾 Save Settings</button>
       </div>
 
       <!-- Stats -->
       <div class="stats-row">
-        <div class="stat-box">
-          <div class="stat-num" id="stat-total">0</div>
-          <div class="stat-lbl">Total</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num" style="color:var(--blue)" id="stat-m">0</div>
-          <div class="stat-lbl">Men</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num" style="color:var(--pink)" id="stat-f">0</div>
-          <div class="stat-lbl">Women</div>
-        </div>
+        <div class="stat-box"><div class="stat-num" id="stat-total">0</div><div class="stat-lbl">Total</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--blue)" id="stat-m">0</div><div class="stat-lbl">Men</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--pink)" id="stat-f">0</div><div class="stat-lbl">Women</div></div>
       </div>
 
       <!-- Actions -->
       <div class="btn-row">
         <button class="btn btn-lime" onclick="downloadXLSX()">⬇ Download XLSX</button>
-        <button class="btn btn-ghost" onclick="syncData()">🔄 Refresh</button>
-        <button class="btn btn-ghost" onclick="confirmClearAll()">🗑 Clear All</button>
+        <button class="btn btn-red" onclick="confirmClear()">🗑 Clear All</button>
+      </div>
+
+      <!-- Import from another device -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-title">📤 Import / Export Data</div>
+        <div style="font-size:.78rem;color:var(--t2);margin-bottom:10px">
+          Export data from this device, then import on another device to merge registrations.
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost" onclick="exportJSON()">📤 Export JSON</button>
+          <label class="btn btn-ghost" style="cursor:pointer">
+            📥 Import JSON <input type="file" accept=".json" style="display:none" onchange="importJSON(event)"/>
+          </label>
+        </div>
       </div>
 
       <!-- Filter -->
@@ -259,126 +225,131 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
       <!-- Table -->
       <div class="tbl-wrap">
         <table class="dtbl">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>CPF/ID</th>
-              <th>Name</th>
-              <th>Cat</th>
-              <th>WhatsApp</th>
-              <th>Dept</th>
-              <th>Date</th>
-              <th></th>
-            </tr>
-          </thead>
+          <thead><tr><th>#</th><th>CPF/ID</th><th>Name</th><th>Cat</th><th>WhatsApp</th><th>Dept</th><th>Date</th><th></th></tr></thead>
           <tbody id="adm-tbody"></tbody>
         </table>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   <div class="footer-txt">For registration issues, contact:</div>
   <div class="footer-contact">Alok Kumar Dudwe · Manager Programming · <span class="footer-phone">📱 9407407147</span></div>
 </div>
 
 <script>
-// ══════════════════════════════════════════
-// CONFIG
-// ══════════════════════════════════════════
+// ══════════════════════════════════
+// CONFIG — change password here
+// ══════════════════════════════════
 const ADMIN_PASS = 'ongctt2025';
-const STORE_KEY  = 'tt_trials_v1';
-const HARDCODED_URL = ''; // paste Apps Script URL here for auto-connect
+const STORE_KEY  = 'tt_trials_v2';
 
-// ══════════════════════════════════════════
-// DATA
-// ══════════════════════════════════════════
-function freshDB(){ return {players:[], nid:1, settings:{scriptURL:HARDCODED_URL||'', deadline:'2026-09-15'}}; }
-function loadDB(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||freshDB(); }catch(e){ return freshDB(); } }
+// ══════════════════════════════════
+// DATA (localStorage only — no server needed)
+// ══════════════════════════════════
+function freshDB(){
+  return { players:[], nid:1, settings:{ deadline:'2026-09-15', notes:'' } };
+}
+function loadDB(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || freshDB(); }
+  catch(e){ return freshDB(); }
+}
 function saveDB(db){ localStorage.setItem(STORE_KEY, JSON.stringify(db)); }
-
 let DB = loadDB();
-if(HARDCODED_URL && !DB.settings.scriptURL) DB.settings.scriptURL = HARDCODED_URL;
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // TABS
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 function showTab(t){
-  document.getElementById('page-reg').style.display  = t==='reg'   ?'block':'none';
-  document.getElementById('page-admin').style.display= t==='admin' ?'block':'none';
-  document.getElementById('tab-reg').className  = 'htab'+(t==='reg'?' active':'');
-  document.getElementById('tab-admin').className= 'htab'+(t==='admin'?' active':'');
-  if(t==='reg') updatePubCount();
+  document.getElementById('page-reg').style.display   = t==='reg'   ?'block':'none';
+  document.getElementById('page-admin').style.display = t==='admin' ?'block':'none';
+  document.getElementById('tab-reg').className   = 'htab'+(t==='reg'  ?' active':'');
+  document.getElementById('tab-admin').className = 'htab'+(t==='admin'?' active':'');
+  if(t==='reg'){ checkDeadline(); updatePubCount(); }
 }
 
-// ══════════════════════════════════════════
-// REGISTRATION
-// ══════════════════════════════════════════
-let selectedCat = '';
+// ══════════════════════════════════
+// DEADLINE
+// ══════════════════════════════════
+function checkDeadline(){
+  DB = loadDB();
+  const dlStr = DB.settings.deadline||'';
+  const banner = document.getElementById('reg-banner');
+  const form   = document.getElementById('reg-form');
+  if(!dlStr){ banner.style.display='none'; form.style.display='block'; return true; }
 
+  const dl = new Date(dlStr+'T23:59:59');
+  const now = new Date();
+  const daysLeft = Math.ceil((dl-now)/(1000*60*60*24));
+  const dlFmt = dl.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+
+  if(now > dl){
+    form.style.display='none';
+    document.getElementById('reg-ok').style.display='none';
+    banner.style.display='block';
+    banner.innerHTML=`<div class="al al-err" style="text-align:center;display:block">
+      <div style="font-size:1.4rem;margin-bottom:6px">🔒</div>
+      <strong>Registration Closed</strong><br>
+      <span style="font-size:.8rem">Deadline was ${dlFmt}</span><br>
+      <span style="font-size:.75rem;display:block;margin-top:6px">Contact: Alok Kumar Dudwe · 📱 9407407147</span>
+    </div>`;
+    return false;
+  }
+  banner.style.display='block';
+  if(daysLeft<=3){
+    banner.innerHTML=`<div class="al al-warn" style="display:block">⏳ <strong>Closes in ${daysLeft===0?'today':daysLeft+' day'+(daysLeft>1?'s':'')}!</strong> Last date: ${dlFmt}</div>`;
+  } else {
+    banner.innerHTML=`<div class="al al-info" style="display:block">📅 Registration open until <strong>${dlFmt}</strong></div>`;
+  }
+  return true;
+}
+
+// ══════════════════════════════════
+// REGISTRATION
+// ══════════════════════════════════
+let selCat='';
 function selectCat(cat){
-  selectedCat=cat;
+  selCat=cat;
   document.getElementById('card-m').className='cat-card'+(cat==='M'?' sel-m':'');
   document.getElementById('card-f').className='cat-card'+(cat==='F'?' sel-f':'');
 }
 
-function showErr(msg){ const el=document.getElementById('reg-err'); el.textContent=msg; el.style.display='block'; }
+function showErr(msg){ const e=document.getElementById('reg-err'); e.textContent=msg; e.style.display='block'; }
 function hideErr(){ document.getElementById('reg-err').style.display='none'; }
 
 function submitReg(){
-  if(!checkDeadline()){ showErr('Registration is closed. Deadline was 15th September 2026.'); return; }
   hideErr();
+  if(!checkDeadline()){ showErr('Registration is closed.'); return; }
   const cpf  = document.getElementById('n-cpf').value.trim();
   const name = document.getElementById('n-name').value.trim();
   const wa   = document.getElementById('n-wa').value.trim();
   const dept = document.getElementById('n-dept').value.trim();
 
-  if(!selectedCat){ showErr('Please select a category (Men / Women).'); return; }
-  if(!cpf){ showErr('Please enter your CPF / Employee ID.'); return; }
-  if(cpf.length<4 || !/^\d+$/.test(cpf)){ showErr('Please enter a valid numeric Employee ID.'); return; }
+  if(!selCat){ showErr('Please select Men\'s or Women\'s category.'); return; }
+  if(!cpf||cpf.length<4||!/^\d+$/.test(cpf)){ showErr('Please enter a valid numeric Employee ID.'); return; }
   if(!name){ showErr('Please enter your full name.'); return; }
-  if(!wa || wa.length!==10 || !/^\d+$/.test(wa)){ showErr('Please enter a valid 10-digit WhatsApp number.'); return; }
+  if(!wa||wa.length!==10||!/^\d+$/.test(wa)){ showErr('Please enter a valid 10-digit WhatsApp number.'); return; }
 
-  // Check duplicate
-  const existing = DB.players.find(p=>p.cpf===cpf && p.cat===selectedCat);
-  if(existing){ showErr('This Employee ID is already registered in the '+( selectedCat==='M'?"Men's":"Women's")+' category.'); return; }
+  DB = loadDB();
+  if(DB.players.find(p=>p.cpf===cpf&&p.cat===selCat)){
+    showErr('This Employee ID is already registered in the '+(selCat==='M'?"Men's":"Women's")+' category.');
+    return;
+  }
 
-  const btn=document.getElementById('reg-btn');
-  btn.disabled=true; btn.textContent='Submitting…';
-
-  const player={
-    id: DB.nid++, cpf, name, cat:selectedCat, wa, dept,
-    ts: new Date().toISOString()
-  };
-
-  // Save locally first
+  const player={ id:DB.nid++, cpf, name, cat:selCat, wa, dept, ts:new Date().toISOString() };
   DB.players.push(player);
   saveDB(DB);
 
-  // Send to server
-  serverSend('addPlayer', player).then(r=>{
-    btn.disabled=false; btn.textContent='Submit Registration';
-    document.getElementById('reg-form').style.display='none';
-    document.getElementById('reg-ok').style.display='block';
-    document.getElementById('reg-ok-msg').textContent =
-      `${name} registered for ${selectedCat==='M'?"Men's":"Women's"} Trials. Good luck! 🏓`;
-    updatePubCount();
-  }).catch(()=>{
-    btn.disabled=false; btn.textContent='Submit Registration';
-    // saved locally even if server fails
-    document.getElementById('reg-form').style.display='none';
-    document.getElementById('reg-ok').style.display='block';
-    document.getElementById('reg-ok-msg').textContent=
-      `${name} registered. (Offline — will sync when connection restored.)`;
-    updatePubCount();
-  });
+  document.getElementById('reg-form').style.display='none';
+  document.getElementById('reg-ok').style.display='block';
+  document.getElementById('reg-ok-msg').textContent=
+    name+' registered for '+(selCat==='M'?"Men's":"Women's")+' Trials. Good luck! 🏓';
+  updatePubCount();
 }
 
 function resetReg(){
-  selectedCat='';
+  selCat='';
   document.getElementById('card-m').className='cat-card';
   document.getElementById('card-f').className='cat-card';
   ['n-cpf','n-name','n-wa','n-dept'].forEach(id=>document.getElementById(id).value='');
@@ -396,24 +367,31 @@ function updatePubCount(){
   document.getElementById('pub-f').textContent=f;
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // ADMIN
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 function adminLogin(){
-  const pass=document.getElementById('adm-pass').value;
-  if(pass===ADMIN_PASS){
+  if(document.getElementById('adm-pass').value===ADMIN_PASS){
     document.getElementById('admin-login').style.display='none';
     document.getElementById('admin-dash').style.display='block';
-    document.getElementById('adm-url').value=DB.settings.scriptURL||'';
+    DB=loadDB();
     document.getElementById('adm-deadline').value=DB.settings.deadline||'';
-    syncData();
+    document.getElementById('adm-notes').value=DB.settings.notes||'';
+    renderAdmTable();
   } else {
     const el=document.getElementById('login-err');
     el.textContent='Incorrect password.'; el.style.display='block';
   }
 }
 
-
+function saveSettings(){
+  DB=loadDB();
+  DB.settings.deadline=document.getElementById('adm-deadline').value;
+  DB.settings.notes=document.getElementById('adm-notes').value.trim();
+  saveDB(DB);
+  checkDeadline();
+  alert('✅ Settings saved!');
+}
 
 let curFilter='all';
 function filterPlayers(f,btn){
@@ -425,19 +403,18 @@ function filterPlayers(f,btn){
 
 function renderAdmTable(){
   DB=loadDB();
-  const filtered=DB.players.filter(p=>curFilter==='all'||p.cat===curFilter);
+  const rows=DB.players.filter(p=>curFilter==='all'||p.cat===curFilter);
   const m=DB.players.filter(p=>p.cat==='M').length;
   const f=DB.players.filter(p=>p.cat==='F').length;
   document.getElementById('stat-total').textContent=DB.players.length;
   document.getElementById('stat-m').textContent=m;
   document.getElementById('stat-f').textContent=f;
-
-  if(!filtered.length){
+  if(!rows.length){
     document.getElementById('adm-tbody').innerHTML=
       '<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--t3)">No registrations yet.</td></tr>';
     return;
   }
-  document.getElementById('adm-tbody').innerHTML=filtered.map((p,i)=>
+  document.getElementById('adm-tbody').innerHTML=rows.map((p,i)=>
     `<tr>
       <td style="color:var(--t3)">${i+1}</td>
       <td class="mono" style="color:var(--lime)">${p.cpf}</td>
@@ -446,198 +423,95 @@ function renderAdmTable(){
       <td class="mono">${p.wa}</td>
       <td style="color:var(--t3);font-size:.72rem">${p.dept||'—'}</td>
       <td style="color:var(--t3);font-size:.7rem">${new Date(p.ts).toLocaleDateString('en-IN')}</td>
-      <td><button class="del-btn" onclick="deletePlayer(${p.id})" title="Delete">🗑</button></td>
+      <td><button class="del-btn" onclick="delPlayer(${p.id})">🗑</button></td>
     </tr>`
   ).join('');
 }
 
-function deletePlayer(id){
+function delPlayer(id){
   if(!confirm('Delete this registration?')) return;
-  DB=loadDB();
-  DB.players=DB.players.filter(p=>p.id!==id);
-  saveDB(DB);
-  serverSend('deletePlayer',{id});
-  renderAdmTable();
+  DB=loadDB(); DB.players=DB.players.filter(p=>p.id!==id); saveDB(DB); renderAdmTable(); updatePubCount();
 }
 
-function confirmClearAll(){
-  if(!confirm('Delete ALL registrations? This cannot be undone!')) return;
-  if(!confirm('Are you absolutely sure?')) return;
-  DB=loadDB(); DB.players=[]; saveDB(DB);
-  serverSend('clearAll',{});
-  renderAdmTable();
+function confirmClear(){
+  if(!confirm('Delete ALL registrations? Cannot be undone!')) return;
+  if(!confirm('Sure? All data will be lost.')) return;
+  DB=loadDB(); DB.players=[]; saveDB(DB); renderAdmTable(); updatePubCount();
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // XLSX DOWNLOAD
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 function downloadXLSX(){
   DB=loadDB();
   if(!DB.players.length){ alert('No registrations to download.'); return; }
-
   const wb=XLSX.utils.book_new();
 
-  // Sheet 1: All Players
   const allRows=[['#','CPF/ID','Name','Category','WhatsApp','Department','Registered On']];
-  DB.players.forEach((p,i)=>{
-    allRows.push([i+1, p.cpf, p.name, p.cat==='M'?"Men's":"Women's", p.wa, p.dept||'', new Date(p.ts).toLocaleDateString('en-IN')]);
-  });
+  DB.players.forEach((p,i)=>allRows.push([
+    i+1,p.cpf,p.name,p.cat==='M'?"Men's":"Women's",p.wa,p.dept||'',
+    new Date(p.ts).toLocaleDateString('en-IN')
+  ]));
   const ws1=XLSX.utils.aoa_to_sheet(allRows);
   ws1['!cols']=[{wch:4},{wch:10},{wch:30},{wch:12},{wch:14},{wch:20},{wch:14}];
   XLSX.utils.book_append_sheet(wb,ws1,'All Registrations');
 
-  // Sheet 2: Men's
   const mRows=[['#','CPF/ID','Name','WhatsApp','Department','Seeding','Group','Notes']];
-  DB.players.filter(p=>p.cat==='M').forEach((p,i)=>{
-    mRows.push([i+1, p.cpf, p.name, p.wa, p.dept||'', '', '', '']);
-  });
+  DB.players.filter(p=>p.cat==='M').forEach((p,i)=>mRows.push([i+1,p.cpf,p.name,p.wa,p.dept||'','','','']));
   const ws2=XLSX.utils.aoa_to_sheet(mRows);
   ws2['!cols']=[{wch:4},{wch:10},{wch:30},{wch:14},{wch:20},{wch:8},{wch:10},{wch:20}];
   XLSX.utils.book_append_sheet(wb,ws2,"Men's Trials");
 
-  // Sheet 3: Women's
   const fRows=[['#','CPF/ID','Name','WhatsApp','Department','Seeding','Group','Notes']];
-  DB.players.filter(p=>p.cat==='F').forEach((p,i)=>{
-    fRows.push([i+1, p.cpf, p.name, p.wa, p.dept||'', '', '', '']);
-  });
+  DB.players.filter(p=>p.cat==='F').forEach((p,i)=>fRows.push([i+1,p.cpf,p.name,p.wa,p.dept||'','','','']));
   const ws3=XLSX.utils.aoa_to_sheet(fRows);
   ws3['!cols']=[{wch:4},{wch:10},{wch:30},{wch:14},{wch:20},{wch:8},{wch:10},{wch:20}];
   XLSX.utils.book_append_sheet(wb,ws3,"Women's Trials");
 
-  const date=new Date().toISOString().slice(0,10);
-  XLSX.writeFile(wb,`TT_Trials_Registrations_${date}.xlsx`);
+  XLSX.writeFile(wb,'TT_Trials_'+new Date().toISOString().slice(0,10)+'.xlsx');
 }
 
-// ══════════════════════════════════════════
-// SERVER (Google Apps Script)
-// ══════════════════════════════════════════
-function toB64(str){ return btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'.'); }
-
-// Google Apps Script requires requests to be made without custom headers
-// We use a script proxy approach to avoid CORS issues
-async function gasRequest(url, action, payload){
-  const sep = url.includes('?') ? '&' : '?';
-  let fullUrl = url + sep + 'action=' + action;
-  if(payload){
-    fullUrl += '&data=' + toB64(JSON.stringify(payload));
-  }
-  // Use no-cors for writes (fire and forget), normal for reads
-  const r = await fetch(fullUrl);
-  const text = await r.text();
-  try{ return JSON.parse(text); }
-  catch(e){ return {ok:true}; } // GAS sometimes returns HTML on success
+// ══════════════════════════════════
+// IMPORT / EXPORT JSON (for multi-device sync)
+// ══════════════════════════════════
+function exportJSON(){
+  DB=loadDB();
+  const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='tt_trials_backup_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
 }
 
-async function serverSend(action, payload){
-  const url = DB.settings.scriptURL;
-  if(!url) return {ok:true}; // offline mode
-  try{
-    return await gasRequest(url, action, payload);
-  }catch(e){
-    console.warn('Server send failed:', e.message);
-    return {ok:true}; // data already saved locally
-  }
-}
-
-async function syncData(){
-  const url = (document.getElementById('adm-url')?.value?.trim()) || DB.settings.scriptURL;
-  if(!url){ renderAdmTable(); return; }
-
-  const st = document.getElementById('url-status');
-  if(st){ st.textContent='🔄 Connecting…'; st.style.display='block'; st.style.color='var(--gold)'; }
-
-  try{
-    const data = await gasRequest(url, 'get', null);
-    if(data && Array.isArray(data.players)){
-      DB = loadDB();
-      DB.players = data.players;
-      DB.nid = data.nid || DB.nid;
-      DB.settings.scriptURL = url;
+function importJSON(e){
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const imported=JSON.parse(ev.target.result);
+      if(!imported.players){ alert('Invalid backup file.'); return; }
+      DB=loadDB();
+      // Merge — add players not already in local DB
+      let added=0;
+      imported.players.forEach(p=>{
+        const dup=DB.players.find(x=>x.cpf===p.cpf&&x.cat===p.cat);
+        if(!dup){ DB.players.push(p); added++; }
+      });
+      DB.nid=Math.max(DB.nid,imported.nid||1);
       saveDB(DB);
-      if(st){ st.textContent='✅ Connected — '+data.players.length+' registrations loaded.'; st.style.color='var(--lime)'; }
-    } else if(data && data.ok===false){
-      if(st){ st.textContent='❌ Server error: '+(data.error||'unknown'); st.style.color='var(--pink)'; }
-    } else {
-      // Got a response but unexpected format — still connected
-      DB.settings.scriptURL = url;
-      saveDB(DB);
-      if(st){ st.textContent='✅ Connected to Apps Script.'; st.style.color='var(--lime)'; }
-    }
-  }catch(e){
-    if(st){ st.textContent='❌ Failed: '+e.message+' — Check URL is correct and deployed as Anyone.'; st.style.color='var(--pink)'; }
-  }
-  renderAdmTable();
-  updatePubCount();
+      renderAdmTable();
+      updatePubCount();
+      alert('✅ Imported! '+added+' new registrations added.');
+    }catch(ex){ alert('Failed to read file: '+ex.message); }
+  };
+  reader.readAsText(file);
 }
 
-function saveSettings(){
-  const url = document.getElementById('adm-url').value.trim();
-  const deadline = document.getElementById('adm-deadline').value;
-  if(url && !url.includes('script.google.com')){
-    alert('That does not look like a valid Apps Script URL. It should start with: https://script.google.com/macros/s/...');
-    return;
-  }
-  DB = loadDB();
-  if(url) DB.settings.scriptURL = url;
-  DB.settings.deadline = deadline;
-  saveDB(DB);
-  checkDeadline();
-  const st = document.getElementById('url-status');
-  st.textContent = '✅ Settings saved!'; st.style.display='block'; st.style.color='var(--lime)';
-  if(url) syncData();
-}
-function saveURL(){ saveSettings(); }
-
-// ══════════════════════════════════════════
-// DEADLINE CHECK
-// ══════════════════════════════════════════
-function checkDeadline(){
-  const now = new Date();
-  const deadlineStr = (loadDB().settings.deadline)||'';
-  if(!deadlineStr){
-    // No deadline set — always open
-    const banner = document.getElementById('reg-deadline-banner');
-    if(banner) banner.style.display='none';
-    const form = document.getElementById('reg-form');
-    if(form) form.style.display='block';
-    return true;
-  }
-  const DEADLINE = new Date(deadlineStr + 'T23:59:59');
-  const banner = document.getElementById('reg-deadline-banner');
-  const form = document.getElementById('reg-form');
-  const daysLeft = Math.ceil((DEADLINE - now) / (1000*60*60*24));
-  const dlFormatted = DEADLINE.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
-
-  if(now > DEADLINE){
-    // Closed
-    form.style.display = 'none';
-    document.getElementById('reg-ok').style.display = 'none';
-    banner.style.display = 'block';
-    banner.className = 'al al-err';
-    banner.innerHTML = `<div style="text-align:center">
-      <div style="font-size:1.4rem;margin-bottom:6px">🔒</div>
-      <strong>Registration Closed</strong><br>
-      <span style="font-size:.8rem">The deadline was ${dlFormatted}.</span><br>
-      <span style="font-size:.75rem;margin-top:4px;display:block">For queries contact Alok Kumar Dudwe · 📱 9407407147</span>
-    </div>`;
-  } else if(daysLeft <= 3){
-    banner.style.display = 'block';
-    banner.className = 'al al-err';
-    banner.innerHTML = `⏳ <strong>Registration closes in ${daysLeft === 0 ? 'today' : daysLeft + ' day' + (daysLeft > 1 ? 's' : '')}!</strong> Last date: ${dlFormatted}`;
-  } else {
-    banner.style.display = 'block';
-    banner.className = 'al al-info';
-    banner.innerHTML = `📅 Registration open until <strong>${dlFormatted}</strong>`;
-  }
-  return now <= DEADLINE;
-}
-
-// ══════════════════════════════════════════
+// ══════════════════════════════════
 // INIT
-// ══════════════════════════════════════════
-updatePubCount();
+// ══════════════════════════════════
 checkDeadline();
-if(DB.settings.scriptURL) syncData();
+updatePubCount();
 </script>
 </body>
 </html>
