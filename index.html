@@ -104,6 +104,7 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
     <div class="card">
       <div class="card-title">📋 Player Registration</div>
       <div id="reg-banner" style="display:none;margin-bottom:14px"></div>
+      <div id="reg-notes-banner" style="display:none;margin-bottom:14px"></div>
       <div id="reg-form">
         <div class="fg">
           <label>Category <span class="req">*</span></label>
@@ -187,6 +188,9 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
         </div>
         <button class="btn btn-lime" onclick="saveSettings()">💾 Save Settings</button>
       </div>
+
+      <!-- Notes display -->
+      <div id="adm-notes-display" style="display:none;margin-bottom:12px"></div>
 
       <!-- Stats -->
       <div class="stats-row">
@@ -277,6 +281,19 @@ function checkDeadline(){
   const dlStr = DB.settings.deadline||'';
   const banner = document.getElementById('reg-banner');
   const form   = document.getElementById('reg-form');
+
+  // Show notes on public page
+  const notesBanner = document.getElementById('reg-notes-banner');
+  if(notesBanner){
+    const notes = DB.settings.notes||'';
+    if(notes){
+      notesBanner.style.display='block';
+      notesBanner.innerHTML=`<div class="al al-warn" style="display:block">📌 ${notes}</div>`;
+    } else {
+      notesBanner.style.display='none';
+    }
+  }
+
   if(!dlStr){ banner.style.display='none'; form.style.display='block'; return true; }
 
   const dl = new Date(dlStr+'T23:59:59');
@@ -377,6 +394,7 @@ function adminLogin(){
     DB=loadDB();
     document.getElementById('adm-deadline').value=DB.settings.deadline||'';
     document.getElementById('adm-notes').value=DB.settings.notes||'';
+    renderAdmNotes();
     renderAdmTable();
   } else {
     const el=document.getElementById('login-err');
@@ -390,6 +408,7 @@ function saveSettings(){
   DB.settings.notes=document.getElementById('adm-notes').value.trim();
   saveDB(DB);
   checkDeadline();
+  renderAdmNotes();
   alert('✅ Settings saved!');
 }
 
@@ -399,6 +418,26 @@ function filterPlayers(f,btn){
   document.querySelectorAll('.fpill').forEach(b=>b.classList.remove('act'));
   btn.classList.add('act');
   renderAdmTable();
+}
+
+function renderAdmNotes(){
+  DB=loadDB();
+  const el=document.getElementById('adm-notes-display');
+  if(!el) return;
+  const notes=DB.settings.notes||'';
+  const dl=DB.settings.deadline||'';
+  let html='';
+  if(notes) html+=`<div class="al al-warn" style="display:block;margin-bottom:8px">📌 ${notes}</div>`;
+  if(dl){
+    const d=new Date(dl+'T23:59:59');
+    const fmt=d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+    const closed=new Date()>d;
+    html+=`<div class="al ${closed?'al-err':'al-info'}" style="display:block">
+      ${closed?'🔒 Registration Closed — deadline was':'📅 Deadline:'} <strong>${fmt}</strong>
+    </div>`;
+  }
+  el.style.display=html?'block':'none';
+  el.innerHTML=html;
 }
 
 function renderAdmTable(){
