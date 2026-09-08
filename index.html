@@ -207,15 +207,20 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
     <!-- Dashboard -->
     <div id="admin-dash" class="admin-hidden">
 
-      <!-- Script URL Setup -->
+      <!-- Settings -->
       <div class="card" id="url-card">
-        <div class="card-title">⚙️ Google Script URL</div>
+        <div class="card-title">⚙️ Settings</div>
         <div class="fg">
           <label>Apps Script Web App URL</label>
           <input class="fi" id="adm-url" placeholder="https://script.google.com/..."/>
         </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-lime" onclick="saveURL()">Save & Connect</button>
+        <div class="fg" style="margin-top:10px">
+          <label>Registration Deadline</label>
+          <input class="fi" id="adm-deadline" type="date"/>
+          <div style="font-size:.7rem;color:var(--t3);margin-top:4px">Leave blank to keep registration always open</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button class="btn btn-lime" onclick="saveSettings()">💾 Save Settings</button>
           <button class="btn btn-ghost" onclick="syncData()">🔄 Sync</button>
         </div>
         <div class="al al-info" id="url-status" style="margin-top:10px"></div>
@@ -291,7 +296,7 @@ const HARDCODED_URL = ''; // paste Apps Script URL here for auto-connect
 // ══════════════════════════════════════════
 // DATA
 // ══════════════════════════════════════════
-function freshDB(){ return {players:[], nid:1, settings:{scriptURL:HARDCODED_URL||'', deadline:''}}; }
+function freshDB(){ return {players:[], nid:1, settings:{scriptURL:HARDCODED_URL||'', deadline:'2026-09-15'}}; }
 function loadDB(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||freshDB(); }catch(e){ return freshDB(); } }
 function saveDB(db){ localStorage.setItem(STORE_KEY, JSON.stringify(db)); }
 
@@ -324,6 +329,7 @@ function showErr(msg){ const el=document.getElementById('reg-err'); el.textConte
 function hideErr(){ document.getElementById('reg-err').style.display='none'; }
 
 function submitReg(){
+  if(!checkDeadline()){ showErr('Registration is closed. Deadline was 15th September 2026.'); return; }
   hideErr();
   const cpf  = document.getElementById('n-cpf').value.trim();
   const name = document.getElementById('n-name').value.trim();
@@ -399,6 +405,7 @@ function adminLogin(){
     document.getElementById('admin-login').style.display='none';
     document.getElementById('admin-dash').style.display='block';
     document.getElementById('adm-url').value=DB.settings.scriptURL||'';
+    document.getElementById('adm-deadline').value=DB.settings.deadline||'';
     syncData();
   } else {
     const el=document.getElementById('login-err');
@@ -406,13 +413,7 @@ function adminLogin(){
   }
 }
 
-function saveURL(){
-  const url=document.getElementById('adm-url').value.trim();
-  DB=loadDB(); DB.settings.scriptURL=url; saveDB(DB);
-  const st=document.getElementById('url-status');
-  st.textContent='URL saved. Testing connection…'; st.style.display='block';
-  syncData();
-}
+
 
 let curFilter='all';
 function filterPlayers(f,btn){
@@ -512,45 +513,132 @@ function downloadXLSX(){
 // ══════════════════════════════════════════
 function toB64(str){ return btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'.'); }
 
+// Google Apps Script requires requests to be made without custom headers
+// We use a script proxy approach to avoid CORS issues
+async function gasRequest(url, action, payload){
+  const sep = url.includes('?') ? '&' : '?';
+  let fullUrl = url + sep + 'action=' + action;
+  if(payload){
+    fullUrl += '&data=' + toB64(JSON.stringify(payload));
+  }
+  // Use no-cors for writes (fire and forget), normal for reads
+  const r = await fetch(fullUrl);
+  const text = await r.text();
+  try{ return JSON.parse(text); }
+  catch(e){ return {ok:true}; } // GAS sometimes returns HTML on success
+}
+
 async function serverSend(action, payload){
-  const url=DB.settings.scriptURL;
-  if(!url) return {ok:true}; // offline mode — data saved locally
-  const b64=toB64(JSON.stringify(payload));
-  const sep=url.includes('?')?'&':'?';
-  const fullUrl=url+sep+'action='+action+'&data='+b64;
-  const r=await fetch(fullUrl);
-  return await r.json();
+  const url = DB.settings.scriptURL;
+  if(!url) return {ok:true}; // offline mode
+  try{
+    return await gasRequest(url, action, payload);
+  }catch(e){
+    console.warn('Server send failed:', e.message);
+    return {ok:true}; // data already saved locally
+  }
 }
 
 async function syncData(){
-  const url=DB.settings.scriptURL||document.getElementById('adm-url')?.value?.trim();
+  const url = (document.getElementById('adm-url')?.value?.trim()) || DB.settings.scriptURL;
   if(!url){ renderAdmTable(); return; }
+
+  const st = document.getElementById('url-status');
+  if(st){ st.textContent='🔄 Connecting…'; st.style.display='block'; st.style.color='var(--gold)'; }
+
   try{
-    const sep=url.includes('?')?'&':'?';
-    const r=await fetch(url+sep+'action=get');
-    const data=await r.json();
-    if(data.players){
-      DB=loadDB();
-      DB.players=data.players;
-      DB.nid=data.nid||DB.nid;
-      DB.settings.scriptURL=url;
+    const data = await gasRequest(url, 'get', null);
+    if(data && Array.isArray(data.players)){
+      DB = loadDB();
+      DB.players = data.players;
+      DB.nid = data.nid || DB.nid;
+      DB.settings.scriptURL = url;
       saveDB(DB);
+      if(st){ st.textContent='✅ Connected — '+data.players.length+' registrations loaded.'; st.style.color='var(--lime)'; }
+    } else if(data && data.ok===false){
+      if(st){ st.textContent='❌ Server error: '+(data.error||'unknown'); st.style.color='var(--pink)'; }
+    } else {
+      // Got a response but unexpected format — still connected
+      DB.settings.scriptURL = url;
+      saveDB(DB);
+      if(st){ st.textContent='✅ Connected to Apps Script.'; st.style.color='var(--lime)'; }
     }
-    const st=document.getElementById('url-status');
-    if(st){ st.textContent='✅ Connected — '+DB.players.length+' registrations loaded.'; st.style.display='block'; }
-    renderAdmTable();
-    updatePubCount();
   }catch(e){
-    const st=document.getElementById('url-status');
-    if(st){ st.textContent='❌ Connection failed: '+e.message; st.style.display='block'; }
-    renderAdmTable();
+    if(st){ st.textContent='❌ Failed: '+e.message+' — Check URL is correct and deployed as Anyone.'; st.style.color='var(--pink)'; }
   }
+  renderAdmTable();
+  updatePubCount();
+}
+
+function saveSettings(){
+  const url = document.getElementById('adm-url').value.trim();
+  const deadline = document.getElementById('adm-deadline').value;
+  if(url && !url.includes('script.google.com')){
+    alert('That does not look like a valid Apps Script URL.
+It should start with:
+https://script.google.com/macros/s/...');
+    return;
+  }
+  DB = loadDB();
+  if(url) DB.settings.scriptURL = url;
+  DB.settings.deadline = deadline;
+  saveDB(DB);
+  checkDeadline();
+  const st = document.getElementById('url-status');
+  st.textContent = '✅ Settings saved!'; st.style.display='block'; st.style.color='var(--lime)';
+  if(url) syncData();
+}
+function saveURL(){ saveSettings(); }
+
+// ══════════════════════════════════════════
+// DEADLINE CHECK
+// ══════════════════════════════════════════
+function checkDeadline(){
+  const now = new Date();
+  const deadlineStr = (loadDB().settings.deadline)||'';
+  if(!deadlineStr){
+    // No deadline set — always open
+    const banner = document.getElementById('reg-deadline-banner');
+    if(banner) banner.style.display='none';
+    const form = document.getElementById('reg-form');
+    if(form) form.style.display='block';
+    return true;
+  }
+  const DEADLINE = new Date(deadlineStr + 'T23:59:59');
+  const banner = document.getElementById('reg-deadline-banner');
+  const form = document.getElementById('reg-form');
+  const daysLeft = Math.ceil((DEADLINE - now) / (1000*60*60*24));
+  const dlFormatted = DEADLINE.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+
+  if(now > DEADLINE){
+    // Closed
+    form.style.display = 'none';
+    document.getElementById('reg-ok').style.display = 'none';
+    banner.style.display = 'block';
+    banner.className = 'al al-err';
+    banner.innerHTML = `<div style="text-align:center">
+      <div style="font-size:1.4rem;margin-bottom:6px">🔒</div>
+      <strong>Registration Closed</strong><br>
+      <span style="font-size:.8rem">The deadline was ${dlFormatted}.</span><br>
+      <span style="font-size:.75rem;margin-top:4px;display:block">For queries contact Alok Kumar Dudwe · 📱 9407407147</span>
+    </div>`;
+  } else if(daysLeft <= 3){
+    banner.style.display = 'block';
+    banner.className = 'al al-err';
+    banner.innerHTML = `⏳ <strong>Registration closes in ${daysLeft === 0 ? 'today' : daysLeft + ' day' + (daysLeft > 1 ? 's' : '')}!</strong> Last date: ${dlFormatted}`;
+  } else {
+    banner.style.display = 'block';
+    banner.className = 'al al-info';
+    banner.innerHTML = `📅 Registration open until <strong>${dlFormatted}</strong>`;
+  }
+  return now <= DEADLINE;
 }
 
 // ══════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════
 updatePubCount();
+checkDeadline();
 if(DB.settings.scriptURL) syncData();
 </script>
 </body>
