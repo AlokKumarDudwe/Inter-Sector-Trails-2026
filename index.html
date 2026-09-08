@@ -234,14 +234,17 @@ const SETTINGS_KEY = 'tt_trials_cfg';
 function getCfg(){ try{ return JSON.parse(localStorage.getItem(SETTINGS_KEY))||{}; }catch(e){ return {}; } }
 function setCfg(o){ localStorage.setItem(SETTINGS_KEY, JSON.stringify(o)); }
 
-// ── GAS API via fetch ────────────────────
+// ── GAS API via CORS proxy ───────────────
+// Google Apps Script drops CORS headers on redirect
+// corsproxy.io transparently adds them back
 async function gas(action, params){
   let url = GAS_URL + '?action=' + encodeURIComponent(action);
   if(params) Object.entries(params).forEach(([k,v])=>{
     url += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(v==null?'':v);
   });
-  const res  = await fetch(url, {method:'GET', mode:'cors'});
-  const text = await res.text();
+  const proxy = 'https://corsproxy.io/?' + encodeURIComponent(url);
+  const res   = await fetch(proxy);
+  const text  = await res.text();
   try{ return JSON.parse(text); }
   catch(e){ throw new Error('Bad response from server'); }
 }
