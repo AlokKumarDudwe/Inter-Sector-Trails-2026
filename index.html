@@ -574,9 +574,7 @@ function saveSettings(){
   const url = document.getElementById('adm-url').value.trim();
   const deadline = document.getElementById('adm-deadline').value;
   if(url && !url.includes('script.google.com')){
-    alert('That does not look like a valid Apps Script URL.
-It should start with:
-https://script.google.com/macros/s/...');
+    alert('That does not look like a valid Apps Script URL. It should start with: https://script.google.com/macros/s/...');
     return;
   }
   DB = loadDB();
