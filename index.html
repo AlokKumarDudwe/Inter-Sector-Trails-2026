@@ -7,37 +7,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0a0f1a;--s1:#0f1520;--s2:#141d2e;--b1:#1e2e4a;
-  --lime:#b8ff3c;--blue:#4da6ff;--pink:#ff3d7f;--gold:#ffcc3c;
-  --t1:#f0f4ff;--t2:#8899bb;--t3:#4d6080;
-  --rsm:8px;--rmd:12px;
-}
+:root{--bg:#0a0f1a;--s1:#0f1520;--s2:#141d2e;--b1:#1e2e4a;--lime:#b8ff3c;--blue:#4da6ff;--pink:#ff3d7f;--gold:#ffcc3c;--t1:#f0f4ff;--t2:#8899bb;--t3:#4d6080;--rsm:8px;--rmd:12px}
 body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column}
-
-/* HEADER */
 .hdr{background:var(--s1);border-bottom:3px solid var(--lime);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.hdr-logo{font-size:1.6rem;margin-right:10px}
+.hdr-left{display:flex;align-items:center;gap:10px}
+.hdr-logo{font-size:1.6rem}
 .hdr-title{font-weight:800;font-size:.95rem;line-height:1.2}
 .hdr-sub{font-size:.68rem;color:var(--lime);font-weight:600;letter-spacing:.5px;margin-top:1px}
-.hdr-tabs{display:flex;gap:6px}
 .htab{padding:7px 16px;border-radius:999px;font-size:.78rem;font-weight:700;border:1.5px solid var(--b1);background:transparent;color:var(--t2);cursor:pointer;transition:all .2s}
 .htab.active{background:var(--lime);color:#060a00;border-color:var(--lime)}
-
-/* LAYOUT */
+.hdr-tabs{display:flex;gap:6px}
 .main{flex:1;padding:20px 16px;max-width:580px;margin:0 auto;width:100%}
 .card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--rmd);padding:20px;margin-bottom:16px}
 .card-title{font-size:.68rem;font-weight:700;color:var(--lime);letter-spacing:1.5px;margin-bottom:16px;text-transform:uppercase}
-
-/* FORM */
 .fg{margin-bottom:14px}
 .fg label{display:block;font-size:.68rem;font-weight:700;color:var(--t2);letter-spacing:.5px;margin-bottom:5px;text-transform:uppercase}
 .req{color:var(--pink)}
 .fi{width:100%;padding:12px 14px;background:var(--s2);border:1.5px solid var(--b1);border-radius:var(--rsm);color:var(--t1);font-size:.9rem;outline:none;transition:border-color .2s;font-family:inherit}
 .fi:focus{border-color:var(--lime)}
 .fi::placeholder{color:var(--t3)}
-
-/* CATEGORY CARDS */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cat-card{background:var(--s2);border:2px solid var(--b1);border-radius:var(--rmd);padding:16px 10px;cursor:pointer;text-align:center;transition:all .2s;user-select:none}
 .cat-card:hover{border-color:var(--t2)}
@@ -46,8 +34,6 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
 .cat-icon{font-size:2rem;margin-bottom:6px}
 .cat-name{font-size:.88rem;font-weight:800}
 .cat-sub{font-size:.68rem;color:var(--t3);margin-top:3px}
-
-/* BUTTONS */
 .btn{padding:12px 20px;border-radius:var(--rsm);font-weight:700;font-size:.88rem;border:none;cursor:pointer;transition:all .2s}
 .btn-lime{background:var(--lime);color:#060a00}
 .btn-lime:hover{filter:brightness(1.1)}
@@ -56,27 +42,19 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
 .btn-ghost:hover{border-color:var(--t1);color:var(--t1)}
 .btn-red{background:rgba(255,61,127,.12);border:1.5px solid rgba(255,61,127,.3);color:var(--pink)}
 .btn-full{width:100%}
-
-/* ALERTS */
 .al{padding:12px 14px;border-radius:var(--rsm);font-size:.82rem;margin-bottom:12px}
 .al-err{background:rgba(255,61,127,.1);border:1px solid rgba(255,61,127,.3);color:#ff8aaa}
 .al-ok{background:rgba(184,255,60,.07);border:1px solid rgba(184,255,60,.25);color:var(--lime)}
 .al-info{background:rgba(77,166,255,.07);border:1px solid rgba(77,166,255,.25);color:var(--blue)}
 .al-warn{background:rgba(255,204,60,.07);border:1px solid rgba(255,204,60,.3);color:var(--gold)}
-
-/* SUCCESS */
 .success{display:none;text-align:center;padding:24px 0}
 .success-icon{font-size:3.5rem;margin-bottom:10px}
 .success-title{font-size:1.15rem;font-weight:800;color:var(--lime);margin-bottom:6px}
 .success-sub{font-size:.82rem;color:var(--t2);margin-bottom:20px;line-height:1.5}
-
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .stat-box{background:var(--s2);border:1px solid var(--b1);border-radius:var(--rsm);padding:14px;text-align:center}
 .stat-num{font-size:1.8rem;font-weight:800;color:var(--lime)}
 .stat-lbl{font-size:.65rem;color:var(--t3);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
-
-/* TABLE */
 .tbl-wrap{overflow-x:auto;border-radius:var(--rsm);border:1px solid var(--b1)}
 .dtbl{width:100%;border-collapse:collapse;font-size:.78rem}
 .dtbl th{padding:9px 10px;text-align:left;color:var(--t3);font-size:.62rem;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--b1);background:var(--s2);white-space:nowrap}
@@ -87,8 +65,6 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
 .chip-m{background:rgba(77,166,255,.15);color:var(--blue);border:1px solid rgba(77,166,255,.3)}
 .chip-f{background:rgba(255,61,127,.15);color:var(--pink);border:1px solid rgba(255,61,127,.3)}
 .mono{font-family:'Courier New',monospace}
-
-/* FILTERS */
 .filter-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .fpill{padding:5px 14px;border-radius:999px;font-size:.72rem;font-weight:700;border:1.5px solid var(--b1);background:transparent;color:var(--t2);cursor:pointer;transition:all .2s}
 .fpill.act{background:var(--lime);color:#060a00;border-color:var(--lime)}
@@ -96,25 +72,18 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
 .del-btn{background:transparent;border:none;color:var(--t3);cursor:pointer;font-size:.88rem;padding:3px 6px;border-radius:4px;transition:all .2s}
 .del-btn:hover{color:var(--pink);background:rgba(255,61,127,.1)}
 .login-wrap{max-width:320px;margin:40px auto}
-
-/* SPINNER */
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin{display:inline-block;animation:spin .8s linear infinite}
-
-/* FOOTER */
 .footer{background:var(--s1);border-top:1px solid var(--b1);padding:14px 16px;text-align:center}
 .footer-note{font-size:.72rem;color:var(--t3)}
 .footer-name{font-size:.82rem;font-weight:700;color:var(--t1);margin-top:3px}
 .footer-phone{color:var(--lime)}
-
-@media(max-width:420px){.cat-grid{grid-template-columns:1fr 1fr}.stats-grid{grid-template-columns:1fr 1fr 1fr}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
-  <div style="display:flex;align-items:center">
+  <div class="hdr-left">
     <div class="hdr-logo">🏓</div>
     <div>
       <div class="hdr-title">TT Inter-Sector Trials 2026</div>
@@ -127,20 +96,14 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- ══ REGISTER PAGE ══ -->
+  <!-- REGISTER -->
   <div id="page-reg">
-
     <div class="card">
       <div class="card-title">📋 Player Registration</div>
-
-      <!-- banners -->
       <div id="banner-note"     style="display:none;margin-bottom:12px"></div>
       <div id="banner-deadline" style="display:none;margin-bottom:12px"></div>
-
-      <!-- form -->
       <div id="reg-form">
         <div class="fg">
           <label>Category <span class="req">*</span></label>
@@ -176,8 +139,6 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
         <div id="reg-err" class="al al-err" style="display:none"></div>
         <button class="btn btn-lime btn-full" id="reg-btn" onclick="submitReg()">Submit Registration</button>
       </div>
-
-      <!-- success -->
       <div class="success" id="reg-ok">
         <div class="success-icon">✅</div>
         <div class="success-title">Registered Successfully!</div>
@@ -185,8 +146,6 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
         <button class="btn btn-ghost" onclick="resetReg()">Register Another Player</button>
       </div>
     </div>
-
-    <!-- live count -->
     <div class="card" style="text-align:center;padding:18px">
       <div style="font-size:.72rem;color:var(--t3);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase">Live Registrations</div>
       <div style="font-size:2.2rem;font-weight:800;color:var(--lime)" id="pub-total">—</div>
@@ -197,10 +156,8 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
     </div>
   </div>
 
-  <!-- ══ ADMIN PAGE ══ -->
+  <!-- ADMIN -->
   <div id="page-admin" style="display:none">
-
-    <!-- Login -->
     <div id="admin-login" class="login-wrap">
       <div class="card">
         <div class="card-title">🔐 Admin Access</div>
@@ -214,16 +171,9 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
       </div>
     </div>
 
-    <!-- Dashboard -->
     <div id="admin-dash" style="display:none">
-
       <div class="card">
         <div class="card-title">⚙️ Settings</div>
-        <div class="fg">
-          <label>Apps Script URL <span class="req">*</span></label>
-          <input class="fi" id="adm-url" placeholder="https://script.google.com/macros/s/..."/>
-          <div style="font-size:.68rem;color:var(--t3);margin-top:4px">Paste your deployed Apps Script URL — all data is stored in Google Sheet</div>
-        </div>
         <div class="fg">
           <label>Registration Deadline</label>
           <input class="fi" id="adm-deadline" type="date"/>
@@ -234,8 +184,8 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
           <input class="fi" id="adm-notice" placeholder="e.g. Trials on 19-20 Sept at TT Hall, 10:00 AM"/>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-lime" onclick="saveSettings()">💾 Save</button>
-          <button class="btn btn-ghost" onclick="fetchPlayers()">🔄 Refresh</button>
+          <button class="btn btn-lime" onclick="saveSettings()">💾 Save Settings</button>
+          <button class="btn btn-ghost" onclick="fetchPlayers()">🔄 Refresh Data</button>
         </div>
         <div id="adm-status" style="display:none;margin-top:12px"></div>
       </div>
@@ -259,21 +209,14 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
 
       <div class="tbl-wrap">
         <table class="dtbl">
-          <thead>
-            <tr>
-              <th>#</th><th>CPF / ID</th><th>Name</th><th>Category</th>
-              <th>WhatsApp</th><th>Department</th><th>Date</th><th></th>
-            </tr>
-          </thead>
+          <thead><tr><th>#</th><th>CPF/ID</th><th>Name</th><th>Category</th><th>WhatsApp</th><th>Dept</th><th>Date</th><th></th></tr></thead>
           <tbody id="adm-tbody"></tbody>
         </table>
       </div>
     </div>
   </div>
+</div>
 
-</div><!-- /main -->
-
-<!-- FOOTER -->
 <div class="footer">
   <div class="footer-note">For registration issues, contact:</div>
   <div class="footer-name">Alok Kumar Dudwe &nbsp;·&nbsp; Manager Programming &nbsp;·&nbsp; <span class="footer-phone">📱 9407407147</span></div>
@@ -282,392 +225,226 @@ body{background:var(--bg);color:var(--t1);font-family:'Segoe UI',system-ui,sans-
 <script>
 'use strict';
 
-// ════════════════════════════════════════
-// CONFIG
-// ════════════════════════════════════════
+// ── CONFIG ──────────────────────────────
 const ADMIN_PASS   = 'ongctt2026';
+const GAS_URL      = 'https://script.google.com/macros/s/AKfycbyIGcwINh3wqWjB5EZ-DQnQuMPLThFDHO_4WBbbE8AgQsLky16IByVCvjK406-MmaGH/exec';
 const SETTINGS_KEY = 'tt_trials_cfg';
 
-// ════════════════════════════════════════
-// SETTINGS (stored in localStorage)
-// ════════════════════════════════════════
-function getCfg(){
-  try{ return JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; }
-  catch(e){ return {}; }
-}
+// ── SETTINGS (localStorage) ──────────────
+function getCfg(){ try{ return JSON.parse(localStorage.getItem(SETTINGS_KEY))||{}; }catch(e){ return {}; } }
 function setCfg(o){ localStorage.setItem(SETTINGS_KEY, JSON.stringify(o)); }
 
-// ════════════════════════════════════════
-// JSONP helper — bypasses CORS for Apps Script
-// ════════════════════════════════════════
-function jsonp(url){
-  return new Promise((resolve, reject) => {
-    const cbName = '_cb' + Date.now() + Math.floor(Math.random()*1000);
-    const script  = document.createElement('script');
-    let done = false;
-
-    const cleanup = () => {
-      done = true;
-      delete window[cbName];
-      if(script.parentNode) script.parentNode.removeChild(script);
-    };
-
-    const timer = setTimeout(() => {
-      cleanup();
-      reject(new Error('Request timed out — check URL and deployment settings'));
-    }, 12000);
-
-    window[cbName] = (data) => {
-      clearTimeout(timer);
-      cleanup();
-      resolve(data);
-    };
-
-    script.onerror = () => {
-      clearTimeout(timer);
-      cleanup();
-      reject(new Error('Script load failed — check URL'));
-    };
-
-    const sep = url.includes('?') ? '&' : '?';
-    script.src = url + sep + 'callback=' + cbName;
-    document.head.appendChild(script);
+// ── GAS API via fetch ────────────────────
+async function gas(action, params){
+  let url = GAS_URL + '?action=' + encodeURIComponent(action);
+  if(params) Object.entries(params).forEach(([k,v])=>{
+    url += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(v==null?'':v);
   });
+  const res  = await fetch(url, {method:'GET', mode:'cors'});
+  const text = await res.text();
+  try{ return JSON.parse(text); }
+  catch(e){ throw new Error('Bad response from server'); }
 }
 
-function buildURL(action, params){
-  const cfg = getCfg();
-  if(!cfg.url) return null;
-  let url = cfg.url + (cfg.url.includes('?') ? '&' : '?') + 'action=' + encodeURIComponent(action);
-  if(params){
-    Object.entries(params).forEach(([k,v]) => {
-      url += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(v == null ? '' : v);
-    });
-  }
-  return url;
-}
-
-// ════════════════════════════════════════
-// TABS
-// ════════════════════════════════════════
+// ── TABS ─────────────────────────────────
 function showTab(t){
   document.getElementById('page-reg').style.display   = t==='reg'  ?'block':'none';
   document.getElementById('page-admin').style.display = t==='admin'?'block':'none';
-  document.getElementById('tab-reg').className   = 'htab' + (t==='reg'  ?' active':'');
-  document.getElementById('tab-admin').className = 'htab' + (t==='admin'?' active':'');
+  document.getElementById('tab-reg').className   = 'htab'+(t==='reg'  ?' active':'');
+  document.getElementById('tab-admin').className = 'htab'+(t==='admin'?' active':'');
   if(t==='reg'){ applyBanners(); fetchCount(); }
 }
 
-// ════════════════════════════════════════
-// BANNERS (deadline + notice)
-// ════════════════════════════════════════
+// ── BANNERS ──────────────────────────────
 function applyBanners(){
   const cfg = getCfg();
+  const nb  = document.getElementById('banner-note');
+  if(nb){ if(cfg.notice){ nb.innerHTML='<div class="al al-warn">📌 '+cfg.notice+'</div>'; nb.style.display='block'; } else nb.style.display='none'; }
 
-  // Notice banner
-  const nb = document.getElementById('banner-note');
-  if(cfg.notice && nb){
-    nb.innerHTML = '<div class="al al-warn">📌 ' + cfg.notice + '</div>';
-    nb.style.display = 'block';
-  } else if(nb){ nb.style.display = 'none'; }
-
-  // Deadline banner
   const db   = document.getElementById('banner-deadline');
   const form = document.getElementById('reg-form');
-  const dlStr = cfg.deadline || '';
+  const dlStr = cfg.deadline||'';
+  if(!dlStr){ if(db) db.style.display='none'; if(form) form.style.display='block'; return true; }
 
-  if(!dlStr){
-    if(db) db.style.display = 'none';
-    if(form) form.style.display = 'block';
-    return true;
-  }
+  const dl  = new Date(dlStr+'T23:59:59');
+  const now = new Date();
+  const days = Math.ceil((dl-now)/86400000);
+  const fmt  = dl.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
 
-  const dl       = new Date(dlStr + 'T23:59:59');
-  const now      = new Date();
-  const daysLeft = Math.ceil((dl - now) / 86400000);
-  const fmt      = dl.toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'});
-
-  if(now > dl){
-    // CLOSED
-    if(form) form.style.display = 'none';
-    document.getElementById('reg-ok').style.display = 'none';
-    if(db){
-      db.style.display = 'block';
-      db.innerHTML = '<div class="al al-err" style="text-align:center">'
-        + '<div style="font-size:1.5rem;margin-bottom:8px">🔒</div>'
-        + '<strong>Registration Closed</strong><br>'
-        + '<span style="font-size:.8rem">Deadline was ' + fmt + '</span><br>'
-        + '<span style="font-size:.75rem;display:block;margin-top:6px">Contact: Alok Kumar Dudwe &nbsp;·&nbsp; 📱 9407407147</span>'
-        + '</div>';
-    }
+  if(now>dl){
+    if(form) form.style.display='none';
+    document.getElementById('reg-ok').style.display='none';
+    if(db){ db.style.display='block'; db.innerHTML='<div class="al al-err" style="text-align:center"><div style="font-size:1.5rem;margin-bottom:8px">🔒</div><strong>Registration Closed</strong><br><span style="font-size:.8rem">Deadline was '+fmt+'</span><br><span style="font-size:.75rem;display:block;margin-top:6px">Contact: Alok Kumar Dudwe · 📱 9407407147</span></div>'; }
     return false;
   }
-
-  if(db){
-    db.style.display = 'block';
-    if(daysLeft <= 3){
-      const txt = daysLeft === 0 ? 'today' : daysLeft + ' day' + (daysLeft > 1 ? 's' : '');
-      db.innerHTML = '<div class="al al-err">⏳ <strong>Registration closes in ' + txt + '!</strong> Last date: ' + fmt + '</div>';
-    } else {
-      db.innerHTML = '<div class="al al-info">📅 Registration open until <strong>' + fmt + '</strong></div>';
-    }
-  }
+  if(db){ db.style.display='block'; db.innerHTML=days<=3?'<div class="al al-err">⏳ <strong>Closes in '+(days===0?'today':days+' day'+(days>1?'s':''))+'!</strong> Last date: '+fmt+'</div>':'<div class="al al-info">📅 Registration open until <strong>'+fmt+'</strong></div>'; }
   return true;
 }
 
-// ════════════════════════════════════════
-// PUBLIC COUNT
-// ════════════════════════════════════════
+// ── PUBLIC COUNT ─────────────────────────
 async function fetchCount(){
-  const url = buildURL('get');
-  if(!url) return;
   try{
-    const d = await jsonp(url);
+    const d = await gas('get');
     if(d.ok && d.players){
-      const m = d.players.filter(p=>p.cat==='M').length;
-      const f = d.players.filter(p=>p.cat==='F').length;
-      document.getElementById('pub-total').textContent = m + f;
-      document.getElementById('pub-m').textContent = m;
-      document.getElementById('pub-f').textContent = f;
+      const m=d.players.filter(p=>p.cat==='M').length, f=d.players.filter(p=>p.cat==='F').length;
+      document.getElementById('pub-total').textContent=m+f;
+      document.getElementById('pub-m').textContent=m;
+      document.getElementById('pub-f').textContent=f;
     }
-  } catch(e){ /* silent */ }
+  }catch(e){ /* silent on public page */ }
 }
 
-// ════════════════════════════════════════
-// REGISTRATION
-// ════════════════════════════════════════
-let selCat = '';
-
+// ── REGISTRATION ─────────────────────────
+let selCat='';
 function pickCat(cat){
-  selCat = cat;
-  document.getElementById('card-m').className = 'cat-card' + (cat==='M' ? ' sel-m' : '');
-  document.getElementById('card-f').className = 'cat-card' + (cat==='F' ? ' sel-f' : '');
+  selCat=cat;
+  document.getElementById('card-m').className='cat-card'+(cat==='M'?' sel-m':'');
+  document.getElementById('card-f').className='cat-card'+(cat==='F'?' sel-f':'');
 }
-
-function showErr(msg){
-  const el = document.getElementById('reg-err');
-  el.textContent = msg; el.style.display = 'block';
-}
-function hideErr(){ document.getElementById('reg-err').style.display = 'none'; }
+function showErr(m){ const e=document.getElementById('reg-err'); e.textContent=m; e.style.display='block'; }
+function hideErr(){ document.getElementById('reg-err').style.display='none'; }
 
 async function submitReg(){
   hideErr();
   if(!applyBanners()){ showErr('Registration is closed.'); return; }
+  const cpf=document.getElementById('n-cpf').value.trim();
+  const name=document.getElementById('n-name').value.trim();
+  const wa=document.getElementById('n-wa').value.trim();
+  const dept=document.getElementById('n-dept').value.trim();
+  if(!selCat)                        { showErr("Please select Men's or Women's category."); return; }
+  if(!cpf||!/^\d{4,7}$/.test(cpf))  { showErr('Please enter a valid numeric Employee ID (4–7 digits).'); return; }
+  if(!name)                          { showErr('Please enter your full name.'); return; }
+  if(!wa||!/^\d{10}$/.test(wa))     { showErr('Please enter a valid 10-digit WhatsApp number.'); return; }
 
-  const cpf  = document.getElementById('n-cpf').value.trim();
-  const name = document.getElementById('n-name').value.trim();
-  const wa   = document.getElementById('n-wa').value.trim();
-  const dept = document.getElementById('n-dept').value.trim();
-
-  if(!selCat)                              { showErr("Please select Men's or Women's category."); return; }
-  if(!cpf || !/^\d{4,7}$/.test(cpf))      { showErr('Please enter a valid numeric Employee ID (4–7 digits).'); return; }
-  if(!name)                                { showErr('Please enter your full name.'); return; }
-  if(!wa || !/^\d{10}$/.test(wa))         { showErr('Please enter a valid 10-digit WhatsApp number.'); return; }
-
-  const cfg = getCfg();
-  if(!cfg.url){ showErr('Registration system not configured yet. Contact Alok Kumar Dudwe · 9407407147.'); return; }
-
-  const btn = document.getElementById('reg-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⏳</span> Submitting…';
+  const btn=document.getElementById('reg-btn');
+  btn.disabled=true; btn.innerHTML='<span class="spin">⏳</span> Submitting…';
 
   try{
-    const url = buildURL('add', { cat:selCat, cpf, name, wa, dept });
-    const res = await jsonp(url);
-
-    btn.disabled = false;
-    btn.textContent = 'Submit Registration';
-
+    const res=await gas('add',{cat:selCat,cpf,name,wa,dept});
+    btn.disabled=false; btn.textContent='Submit Registration';
     if(res.ok){
-      document.getElementById('reg-form').style.display = 'none';
-      document.getElementById('reg-ok').style.display   = 'block';
-      document.getElementById('reg-ok-msg').textContent =
-        name + ' has been registered for ' + (selCat==='M' ? "Men's" : "Women's") + ' Trials. Good luck! 🏓';
+      document.getElementById('reg-form').style.display='none';
+      document.getElementById('reg-ok').style.display='block';
+      document.getElementById('reg-ok-msg').textContent=name+' registered for '+(selCat==='M'?"Men's":"Women's")+' Trials. Good luck! 🏓';
       fetchCount();
     } else {
-      showErr(res.error || 'Registration failed. Please try again.');
+      showErr(res.error||'Registration failed. Please try again.');
     }
-  } catch(e){
-    btn.disabled = false;
-    btn.textContent = 'Submit Registration';
-    showErr('Connection error — please check your internet and try again.');
+  }catch(e){
+    btn.disabled=false; btn.textContent='Submit Registration';
+    showErr('Connection error — please check your internet and try again. ('+e.message+')');
   }
 }
 
 function resetReg(){
-  selCat = '';
-  document.getElementById('card-m').className = 'cat-card';
-  document.getElementById('card-f').className = 'cat-card';
-  ['n-cpf','n-name','n-wa','n-dept'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('reg-form').style.display = 'block';
-  document.getElementById('reg-ok').style.display   = 'none';
+  selCat='';
+  document.getElementById('card-m').className='cat-card';
+  document.getElementById('card-f').className='cat-card';
+  ['n-cpf','n-name','n-wa','n-dept'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('reg-form').style.display='block';
+  document.getElementById('reg-ok').style.display='none';
   hideErr();
 }
 
-// ════════════════════════════════════════
-// ADMIN — LOGIN
-// ════════════════════════════════════════
+// ── ADMIN LOGIN ──────────────────────────
 function adminLogin(){
-  if(document.getElementById('adm-pass').value === ADMIN_PASS){
-    document.getElementById('admin-login').style.display = 'none';
-    document.getElementById('admin-dash').style.display  = 'block';
-    const cfg = getCfg();
-    document.getElementById('adm-url').value      = cfg.url      || '';
-    document.getElementById('adm-deadline').value = cfg.deadline || '';
-    document.getElementById('adm-notice').value   = cfg.notice   || '';
-    if(cfg.url) fetchPlayers();
+  if(document.getElementById('adm-pass').value===ADMIN_PASS){
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-dash').style.display='block';
+    const cfg=getCfg();
+    document.getElementById('adm-deadline').value=cfg.deadline||'2026-09-15';
+    document.getElementById('adm-notice').value=cfg.notice||'';
+    fetchPlayers();
   } else {
-    const el = document.getElementById('login-err');
-    el.textContent = 'Incorrect password.';
-    el.style.display = 'block';
+    const el=document.getElementById('login-err');
+    el.textContent='Incorrect password.'; el.style.display='block';
   }
 }
 
-// ════════════════════════════════════════
-// ADMIN — SETTINGS
-// ════════════════════════════════════════
+// ── ADMIN SETTINGS ───────────────────────
 function saveSettings(){
-  const url      = document.getElementById('adm-url').value.trim();
-  const deadline = document.getElementById('adm-deadline').value;
-  const notice   = document.getElementById('adm-notice').value.trim();
-  setCfg({ url, deadline, notice });
+  setCfg({deadline:document.getElementById('adm-deadline').value, notice:document.getElementById('adm-notice').value.trim()});
   applyBanners();
-  setStatus('✅ Settings saved!', 'ok');
-  if(url) fetchPlayers();
+  setStatus('✅ Settings saved!','ok');
 }
 
-function setStatus(msg, type){
-  const el = document.getElementById('adm-status');
-  el.className = 'al al-' + (type==='ok'?'ok':type==='err'?'err':'info');
-  el.textContent = msg;
-  el.style.display = 'block';
+function setStatus(msg,type){
+  const el=document.getElementById('adm-status');
+  el.className='al al-'+(type==='ok'?'ok':type==='err'?'err':'info');
+  el.textContent=msg; el.style.display='block';
 }
 
-// ════════════════════════════════════════
-// ADMIN — DATA
-// ════════════════════════════════════════
-let players  = [];
-let curFilter = 'all';
+// ── ADMIN DATA ───────────────────────────
+let players=[], curFilter='all';
 
 async function fetchPlayers(){
-  const url = buildURL('get');
-  if(!url){ setStatus('⚠️ No Apps Script URL configured. Paste it above and Save.', 'err'); return; }
-  setStatus('🔄 Connecting to Google Sheet…', 'info');
+  setStatus('🔄 Loading from Google Sheet…','info');
   try{
-    const d = await jsonp(url);
-    if(d.ok){
-      players = d.players || [];
-      renderTable();
-      setStatus('✅ Connected — ' + players.length + ' registrations loaded.', 'ok');
-    } else {
-      setStatus('❌ Server error: ' + (d.error || 'unknown'), 'err');
-    }
-  } catch(e){
-    setStatus('❌ ' + e.message, 'err');
-  }
+    const d=await gas('get');
+    if(d.ok){ players=d.players||[]; renderTable(); setStatus('✅ '+players.length+' registrations loaded.','ok'); }
+    else setStatus('❌ '+( d.error||'unknown error'),'err');
+  }catch(e){ setStatus('❌ '+e.message+' — Make sure Apps Script is deployed as Anyone.','err'); }
 }
 
-function setFilter(f, btn){
-  curFilter = f;
-  document.querySelectorAll('.fpill').forEach(b => b.classList.remove('act'));
-  btn.classList.add('act');
-  renderTable();
-}
+function setFilter(f,btn){ curFilter=f; document.querySelectorAll('.fpill').forEach(b=>b.classList.remove('act')); btn.classList.add('act'); renderTable(); }
 
 function renderTable(){
-  const rows = players.filter(p => curFilter==='all' || p.cat===curFilter);
-  const m    = players.filter(p => p.cat==='M').length;
-  const f    = players.filter(p => p.cat==='F').length;
-  document.getElementById('st-total').textContent = players.length;
-  document.getElementById('st-m').textContent = m;
-  document.getElementById('st-f').textContent = f;
-
-  if(!rows.length){
-    document.getElementById('adm-tbody').innerHTML =
-      '<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--t3)">No registrations found.</td></tr>';
-    return;
-  }
-
-  document.getElementById('adm-tbody').innerHTML = rows.map((p, i) =>
-    '<tr>'
-    + '<td style="color:var(--t3)">' + (i+1) + '</td>'
-    + '<td class="mono" style="color:var(--lime)">' + p.cpf + '</td>'
-    + '<td><strong>' + p.name + '</strong></td>'
-    + '<td><span class="chip ' + (p.cat==='M'?'chip-m':'chip-f') + '">'
-    +   (p.cat==='M'?'👨 Men':'👩 Women') + '</span></td>'
-    + '<td class="mono">' + p.wa + '</td>'
-    + '<td style="color:var(--t3);font-size:.72rem">' + (p.dept||'—') + '</td>'
-    + '<td style="color:var(--t3);font-size:.7rem">'  + (p.ts||'—')   + '</td>'
-    + '<td><button class="del-btn" onclick="delPlayer(' + p.id + ')">🗑</button></td>'
-    + '</tr>'
-  ).join('');
+  const rows=players.filter(p=>curFilter==='all'||p.cat===curFilter);
+  document.getElementById('st-total').textContent=players.length;
+  document.getElementById('st-m').textContent=players.filter(p=>p.cat==='M').length;
+  document.getElementById('st-f').textContent=players.filter(p=>p.cat==='F').length;
+  if(!rows.length){ document.getElementById('adm-tbody').innerHTML='<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--t3)">No registrations found.</td></tr>'; return; }
+  document.getElementById('adm-tbody').innerHTML=rows.map((p,i)=>`<tr>
+    <td style="color:var(--t3)">${i+1}</td>
+    <td class="mono" style="color:var(--lime)">${p.cpf}</td>
+    <td><strong>${p.name}</strong></td>
+    <td><span class="chip ${p.cat==='M'?'chip-m':'chip-f'}">${p.cat==='M'?'👨 Men':'👩 Women'}</span></td>
+    <td class="mono">${p.wa}</td>
+    <td style="color:var(--t3);font-size:.72rem">${p.dept||'—'}</td>
+    <td style="color:var(--t3);font-size:.7rem">${p.ts||'—'}</td>
+    <td><button class="del-btn" onclick="delPlayer(${p.id})">🗑</button></td>
+  </tr>`).join('');
 }
 
 async function delPlayer(id){
   if(!confirm('Delete this registration?')) return;
   try{
-    const url = buildURL('delete', { id });
-    const r   = await jsonp(url);
-    if(r.ok){
-      players = players.filter(p => p.id !== id);
-      renderTable();
-    } else {
-      alert('Delete failed: ' + (r.error||'unknown'));
-    }
-  } catch(e){ alert('Error: ' + e.message); }
+    const r=await gas('delete',{id});
+    if(r.ok){ players=players.filter(p=>p.id!==id); renderTable(); }
+    else alert('Delete failed: '+(r.error||'unknown'));
+  }catch(e){ alert('Error: '+e.message); }
 }
 
 async function clearAll(){
-  if(!confirm('Delete ALL registrations? This cannot be undone!')) return;
-  if(!confirm('Final confirmation — delete everything?')) return;
+  if(!confirm('Delete ALL registrations? Cannot be undone!')) return;
+  if(!confirm('Final confirmation — delete everything in Google Sheet?')) return;
   try{
-    const url = buildURL('clearAll');
-    const r   = await jsonp(url);
-    if(r.ok){ players = []; renderTable(); setStatus('✅ All data cleared.', 'ok'); }
-    else alert('Failed: ' + (r.error||'unknown'));
-  } catch(e){ alert('Error: ' + e.message); }
+    const r=await gas('clearAll');
+    if(r.ok){ players=[]; renderTable(); setStatus('✅ All data cleared.','ok'); }
+    else alert('Failed: '+(r.error||'unknown'));
+  }catch(e){ alert('Error: '+e.message); }
 }
 
-// ════════════════════════════════════════
-// XLSX DOWNLOAD
-// ════════════════════════════════════════
+// ── XLSX ─────────────────────────────────
 function dlXLSX(){
-  if(!players.length){ alert('No data. Click Refresh first.'); return; }
-  const wb = XLSX.utils.book_new();
-
-  // Sheet 1 — All
-  const all = [['#','CPF/ID','Name','Category','WhatsApp','Department','Registered On']];
-  players.forEach((p,i) => all.push([
-    i+1, p.cpf, p.name,
-    p.cat==='M' ? "Men's" : "Women's",
-    p.wa, p.dept||'', p.ts||''
-  ]));
-  const ws1 = XLSX.utils.aoa_to_sheet(all);
-  ws1['!cols'] = [{wch:4},{wch:10},{wch:28},{wch:12},{wch:14},{wch:20},{wch:18}];
-  XLSX.utils.book_append_sheet(wb, ws1, 'All Registrations');
-
-  // Sheet 2 — Men
-  const men = [['#','CPF/ID','Name','WhatsApp','Department','Seeding','Group','Notes']];
-  players.filter(p=>p.cat==='M').forEach((p,i) =>
-    men.push([i+1, p.cpf, p.name, p.wa, p.dept||'', '', '', '']));
-  const ws2 = XLSX.utils.aoa_to_sheet(men);
-  ws2['!cols'] = [{wch:4},{wch:10},{wch:28},{wch:14},{wch:20},{wch:8},{wch:10},{wch:20}];
-  XLSX.utils.book_append_sheet(wb, ws2, "Men's Trials");
-
-  // Sheet 3 — Women
-  const wmn = [['#','CPF/ID','Name','WhatsApp','Department','Seeding','Group','Notes']];
-  players.filter(p=>p.cat==='F').forEach((p,i) =>
-    wmn.push([i+1, p.cpf, p.name, p.wa, p.dept||'', '', '', '']));
-  const ws3 = XLSX.utils.aoa_to_sheet(wmn);
-  ws3['!cols'] = [{wch:4},{wch:10},{wch:28},{wch:14},{wch:20},{wch:8},{wch:10},{wch:20}];
-  XLSX.utils.book_append_sheet(wb, ws3, "Women's Trials");
-
-  XLSX.writeFile(wb, 'TT_Trials_' + new Date().toISOString().slice(0,10) + '.xlsx');
+  if(!players.length){ alert('No data. Click Refresh Data first.'); return; }
+  const wb=XLSX.utils.book_new();
+  const all=[['#','CPF/ID','Name','Category','WhatsApp','Department','Registered On']];
+  players.forEach((p,i)=>all.push([i+1,p.cpf,p.name,p.cat==='M'?"Men's":"Women's",p.wa,p.dept||'',p.ts||'']));
+  const ws1=XLSX.utils.aoa_to_sheet(all); ws1['!cols']=[{wch:4},{wch:10},{wch:28},{wch:12},{wch:14},{wch:20},{wch:18}];
+  XLSX.utils.book_append_sheet(wb,ws1,'All Registrations');
+  const men=[['#','CPF/ID','Name','WhatsApp','Department','Seeding','Group','Notes']];
+  players.filter(p=>p.cat==='M').forEach((p,i)=>men.push([i+1,p.cpf,p.name,p.wa,p.dept||'','','','']));
+  const ws2=XLSX.utils.aoa_to_sheet(men); ws2['!cols']=[{wch:4},{wch:10},{wch:28},{wch:14},{wch:20},{wch:8},{wch:10},{wch:20}];
+  XLSX.utils.book_append_sheet(wb,ws2,"Men's Trials");
+  const wmn=[['#','CPF/ID','Name','WhatsApp','Department','Seeding','Group','Notes']];
+  players.filter(p=>p.cat==='F').forEach((p,i)=>wmn.push([i+1,p.cpf,p.name,p.wa,p.dept||'','','','']));
+  const ws3=XLSX.utils.aoa_to_sheet(wmn); ws3['!cols']=[{wch:4},{wch:10},{wch:28},{wch:14},{wch:20},{wch:8},{wch:10},{wch:20}];
+  XLSX.utils.book_append_sheet(wb,ws3,"Women's Trials");
+  XLSX.writeFile(wb,'TT_Trials_'+new Date().toISOString().slice(0,10)+'.xlsx');
 }
 
-// ════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════
+// ── INIT ─────────────────────────────────
 applyBanners();
 fetchCount();
 </script>
